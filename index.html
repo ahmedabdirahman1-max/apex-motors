@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Apex Motors — Premium Auto Dealership</title>
+<meta name="description" content="Apex Motors — find, configure, and finance your next car. A premium dealership experience." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+  :root{
+    --bg:#080b14; --bg2:#0d1220; --surface:#121a2e; --surface2:#18223c;
+    --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+    --text:#eaf0fb; --muted:#8b97b2; --faint:#5b6680;
+    --accent:#3b82f6; --accent2:#22d3ee; --gold:#f5b740;
+    --r:14px; --rl:20px;
+    --grad:linear-gradient(135deg,#3b82f6,#22d3ee);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+  h1,h2,h3,.brand,.display{font-family:'Sora',sans-serif;letter-spacing:-.02em}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  section{position:relative}
+  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2)}
+  .sec-head{text-align:center;max-width:620px;margin:0 auto 48px}
+  .sec-head h2{font-size:clamp(28px,4vw,44px);font-weight:700;margin:14px 0 12px;line-height:1.1}
+  .sec-head p{color:var(--muted);font-size:17px}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Sora';font-weight:600;font-size:15px;padding:14px 26px;border-radius:999px;cursor:pointer;border:none;transition:.25s;white-space:nowrap}
+  .btn-primary{background:var(--grad);color:#06101f}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(34,211,238,.32)}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line2)}
+  .btn-ghost:hover{border-color:var(--accent2);color:var(--accent2)}
+
+  /* NAV */
+  header{position:fixed;top:0;left:0;right:0;z-index:100;transition:.3s}
+  header.scrolled{background:rgba(8,11,20,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:800}
+  .brand i{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav-links{display:flex;gap:34px;list-style:none}
+  .nav-links a{font-size:15px;color:var(--muted);font-weight:500;transition:.2s;position:relative}
+  .nav-links a:hover{color:var(--text)}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--grad);transition:.25s}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .burger{display:none;font-size:22px;background:none;border:none;color:var(--text);cursor:pointer}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;padding-top:74px;position:relative;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg::before{content:"";position:absolute;inset:0;background:radial-gradient(1100px 560px at 78% 12%,rgba(59,130,246,.22),transparent 60%),radial-gradient(800px 480px at 8% 88%,rgba(34,211,238,.14),transparent 60%)}
+  .grid-lines{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%);opacity:.5}
+  .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;width:100%}
+  .hero h1{font-size:clamp(40px,6vw,68px);font-weight:800;line-height:1.04}
+  .hero h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{color:var(--muted);font-size:19px;margin:22px 0 30px;max-width:520px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-stats{display:flex;gap:34px;margin-top:42px}
+  .hero-stats .num{font-family:'Sora';font-size:30px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-stats .lbl{font-size:13px;color:var(--muted)}
+  .hero-car{position:relative}
+  .hero-car img{border-radius:var(--rl);box-shadow:0 40px 80px rgba(0,0,0,.55);border:1px solid var(--line)}
+  .badge-float{position:absolute;background:var(--surface);border:1px solid var(--line2);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 16px 40px rgba(0,0,0,.4)}
+  .badge-float i{color:var(--accent2);font-size:18px}
+  .badge-float .t{font-family:'Sora';font-weight:600;font-size:14px;line-height:1.2}
+  .badge-float .s{font-size:12px;color:var(--muted)}
+  .bf1{top:24px;left:-22px}
+  .bf2{bottom:30px;right:-18px}
+  .scroll-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--muted);font-size:13px;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2}
+  .scroll-cue i{animation:bob 1.8s infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+
+  /* quick search */
+  .qsearch{display:flex;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px;margin-top:30px;max-width:560px;flex-wrap:wrap}
+  .qsearch select,.qsearch input{flex:1;min-width:120px;background:var(--bg2);border:1px solid var(--line);color:var(--text);padding:12px 14px;border-radius:10px;font-family:inherit;font-size:14px;outline:none}
+  .qsearch select:focus,.qsearch input:focus{border-color:var(--accent)}
+
+  /* INVENTORY */
+  .inventory{padding:110px 0}
+  .filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+  .chip{background:var(--surface);border:1px solid var(--line);color:var(--muted);padding:10px 20px;border-radius:999px;cursor:pointer;font-family:'Sora';font-weight:500;font-size:14px;transition:.2s}
+  .chip:hover{color:var(--text);border-color:var(--line2)}
+  .chip.active{background:var(--grad);color:#06101f;border-color:transparent}
+  .car-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .car-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rl);overflow:hidden;transition:.3s;transform-style:preserve-3d}
+  .car-card:hover{border-color:var(--line2)}
+  .car-media{position:relative;aspect-ratio:16/10;overflow:hidden}
+  .car-media img{width:100%;height:100%;object-fit:cover;transition:.6s}
+  .car-card:hover .car-media img{transform:scale(1.07)}
+  .car-tag{position:absolute;top:12px;left:12px;background:rgba(8,11,20,.78);backdrop-filter:blur(6px);border:1px solid var(--line2);padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;font-family:'Sora'}
+  .fav{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;background:rgba(8,11,20,.7);border:1px solid var(--line2);color:#fff;cursor:pointer;display:grid;place-items:center;transition:.2s}
+  .fav:hover{color:#ff5b7f}
+  .fav.on{color:#ff5b7f;border-color:#ff5b7f}
+  .car-body{padding:20px}
+  .car-body h3{font-size:19px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .car-price{color:var(--accent2);font-family:'Sora';font-weight:700;white-space:nowrap}
+  .car-specs{display:flex;gap:16px;margin:14px 0 18px;color:var(--muted);font-size:13px;flex-wrap:wrap}
+  .car-specs span{display:flex;align-items:center;gap:6px}
+  .car-body .btn{width:100%;justify-content:center;background:var(--surface2);color:var(--text);border:1px solid var(--line2)}
+  .car-body .btn:hover{background:var(--accent);color:#06101f;border-color:transparent}
+
+  /* CONFIGURATOR */
+  .config{padding:110px 0;background:linear-gradient(180deg,transparent,rgba(59,130,246,.05),transparent)}
+  .config-card{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:46px;display:grid;grid-template-columns:1.25fr .75fr;gap:42px;align-items:center}
+  .config-stage{background:radial-gradient(circle at 50% 70%,rgba(59,130,246,.18),transparent 65%);border-radius:var(--rl);padding:20px;display:flex;align-items:center;justify-content:center;min-height:300px}
+  .config-stage svg{width:100%;max-width:520px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.5))}
+  .opt-group{margin-bottom:26px}
+  .opt-group .lbl{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px;font-weight:600}
+  .swatches{display:flex;gap:12px;flex-wrap:wrap}
+  .swatch{width:42px;height:42px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.2s;position:relative}
+  .swatch.on{border-color:#fff;transform:scale(1.08)}
+  .swatch.on::after{content:"\f00c";font-family:"Font Awesome 6 Free";font-weight:900;position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:13px;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+  .pills{display:flex;gap:10px;flex-wrap:wrap}
+  .pill{background:var(--bg2);border:1px solid var(--line);color:var(--muted);padding:10px 18px;border-radius:10px;cursor:pointer;font-family:'Sora';font-weight:500;font-size:14px;transition:.2s}
+  .pill.on{border-color:var(--accent2);color:var(--text);background:var(--surface2)}
+  .config-price{display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid var(--line);padding-top:22px;margin-top:6px}
+  .config-price .pl{color:var(--muted);font-size:14px}
+  .config-price .pv{font-family:'Sora';font-size:34px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* FINANCE */
+  .finance{padding:110px 0}
+  .fin-card{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:46px;display:grid;grid-template-columns:1fr .9fr;gap:48px;align-items:center}
+  .slider-row{margin-bottom:26px}
+  .slider-row .top{display:flex;justify-content:space-between;margin-bottom:10px}
+  .slider-row .top .k{color:var(--muted);font-size:14px}
+  .slider-row .top .v{font-family:'Sora';font-weight:600;color:var(--accent2)}
+  input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:999px;background:var(--surface2);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--grad);cursor:pointer;border:3px solid var(--bg)}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#22d3ee;cursor:pointer;border:3px solid var(--bg)}
+  .fin-out{background:radial-gradient(circle at 50% 0%,rgba(34,211,238,.16),transparent 70%);border:1px solid var(--line);border-radius:var(--rl);padding:38px;text-align:center}
+  .fin-out .est{color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.14em}
+  .fin-out .mo{font-family:'Sora';font-size:56px;font-weight:800;line-height:1.1;margin:8px 0;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .fin-out .mo span{font-size:18px;color:var(--muted);-webkit-text-fill-color:var(--muted)}
+  .fin-breakdown{display:flex;justify-content:space-around;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+  .fin-breakdown .k{font-size:12px;color:var(--muted)}
+  .fin-breakdown .v{font-family:'Sora';font-weight:600;font-size:17px;margin-top:4px}
+
+  /* STATS */
+  .stats{padding:80px 0}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+  .stat .n{font-family:'Sora';font-size:clamp(34px,5vw,52px);font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .l{color:var(--muted);font-size:15px;margin-top:6px}
+
+  /* TESTIMONIALS */
+  .testi{padding:110px 0;background:var(--bg2)}
+  .swiper{padding:10px 4px 60px}
+  .t-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rl);padding:34px;height:100%}
+  .t-stars{color:var(--gold);margin-bottom:16px}
+  .t-card p{font-size:16px;color:#cdd6ea}
+  .t-who{display:flex;align-items:center;gap:14px;margin-top:22px}
+  .t-who .av{width:48px;height:48px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-family:'Sora';font-weight:700;color:#06101f}
+  .t-who .nm{font-family:'Sora';font-weight:600}
+  .t-who .rl{font-size:13px;color:var(--muted)}
+  .swiper-pagination-bullet{background:var(--muted)}
+  .swiper-pagination-bullet-active{background:var(--accent2)}
+
+  /* BOOK CTA */
+  .book{padding:110px 0}
+  .book-card{background:linear-gradient(135deg,rgba(59,130,246,.16),rgba(34,211,238,.08));border:1px solid var(--line2);border-radius:28px;padding:54px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .book-card h2{font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1.1}
+  .book-card p{color:var(--muted);font-size:17px;margin-top:14px}
+  .book-form{display:grid;gap:14px}
+  .book-form input,.book-form select{background:var(--bg);border:1px solid var(--line2);color:var(--text);padding:15px 16px;border-radius:12px;font-family:inherit;font-size:15px;outline:none}
+  .book-form input:focus,.book-form select:focus{border-color:var(--accent2)}
+  .book-form .btn-primary{justify-content:center;margin-top:4px}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:54px 0 30px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:40px}
+  .foot-grid p{color:var(--muted);font-size:14px;margin-top:14px;max-width:280px}
+  .foot-col h4{font-family:'Sora';font-size:15px;margin-bottom:14px}
+  .foot-col a{display:block;color:var(--muted);font-size:14px;padding:5px 0;transition:.2s}
+  .foot-col a:hover{color:var(--accent2)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:13px;flex-wrap:wrap;gap:12px}
+  .socials{display:flex;gap:14px}
+  .socials a{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;transition:.2s}
+  .socials a:hover{background:var(--grad);color:#06101f;border-color:transparent}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(140px);background:var(--surface);border:1px solid var(--accent2);border-radius:14px;padding:16px 24px;display:flex;align-items:center;gap:12px;z-index:300;transition:.4s;box-shadow:0 18px 50px rgba(0,0,0,.5)}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .toast i{color:var(--accent2);font-size:20px}
+
+  /* trust strip (Carvana/CarMax transparency) */
+  .trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2)}
+  .trust-row{display:flex;justify-content:space-between;gap:18px;padding:22px 0;flex-wrap:wrap}
+  .trust-row .ti{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+  .trust-row .ti i{color:var(--accent2);font-size:18px}
+  .trust-row .ti b{color:var(--text);font-weight:600;font-family:'Sora'}
+  /* monthly payment on card (Carvana) */
+  .car-mo{font-size:12.5px;color:var(--muted);margin:-2px 0 2px}
+  .car-mo b{color:var(--accent2);font-family:'Sora'}
+  /* vehicle quick-view modal (VDP) */
+  .modal-bg{position:fixed;inset:0;z-index:200;background:rgba(4,7,14,.74);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--surface);border:1px solid var(--line2);border-radius:var(--rl);max-width:780px;width:100%;overflow:hidden;display:grid;grid-template-columns:1.05fr .95fr;max-height:90vh}
+  .modal-img{position:relative;min-height:300px;background:#1b2438}
+  .modal-img img{width:100%;height:100%;object-fit:cover}
+  .modal-360{position:absolute;bottom:12px;left:12px;background:rgba(8,11,20,.82);border:1px solid var(--line2);border-radius:999px;padding:6px 14px;font-size:12px;display:flex;gap:7px;align-items:center}
+  .modal-360 i{color:var(--accent2)}
+  .modal-close{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;background:rgba(8,11,20,.82);border:1px solid var(--line2);color:#fff;cursor:pointer;z-index:2}
+  .modal-body{padding:30px;overflow:auto}
+  .modal-body h3{font-size:23px;font-weight:700}
+  .modal-price{display:flex;align-items:baseline;gap:12px;margin:8px 0 4px}
+  .modal-price .p{font-family:'Sora';font-size:26px;font-weight:800;color:var(--accent2)}
+  .modal-price .mo{font-size:14px;color:var(--muted)}
+  .modal-specs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+  .modal-specs div{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;font-weight:600}
+  .modal-specs span{color:var(--muted);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:400}
+  .modal-trust{font-size:13.5px;color:var(--muted);margin:16px 0;line-height:2}
+  .modal-trust i{color:var(--accent2);width:20px}
+  .modal-cta{display:flex;gap:10px;flex-wrap:wrap}
+  .modal-cta .btn{flex:1;justify-content:center}
+  /* sticky conversion bar (Carvana persistent CTA) */
+  .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:90;background:rgba(13,18,32,.93);backdrop-filter:blur(14px);border-top:1px solid var(--line2);transform:translateY(130%);transition:.4s}
+  .stickybar.show{transform:translateY(0)}
+  .stickybar .inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 0;flex-wrap:wrap}
+  .stickybar .msg{font-family:'Sora';font-weight:600}
+  .stickybar .msg span{color:var(--muted);font-weight:400;font-size:13px;display:block}
+  .stickybar .acts{display:flex;gap:10px}
+  /* trade-in valuator (Carvana/CarMax instant offer) */
+  .trade-card{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:46px;display:grid;grid-template-columns:1fr .9fr;gap:42px;align-items:center}
+  .trade-controls .r2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+  .trade-controls label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:7px}
+  .trade-controls select{width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--text);padding:13px 14px;border-radius:10px;font-family:inherit;font-size:14px;outline:none}
+  .trade-controls select:focus{border-color:var(--accent)}
+  .trade-out{background:radial-gradient(circle at 50% 0%,rgba(245,183,64,.14),transparent 70%);border:1px solid var(--line);border-radius:var(--rl);padding:36px;text-align:center}
+  .trade-out .est{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.14em}
+  .trade-out .val{font-family:'Sora';font-size:42px;font-weight:800;margin:10px 0;color:var(--gold)}
+
+  @media(max-width:980px){
+    .modal{grid-template-columns:1fr}.trade-card{grid-template-columns:1fr}
+    .stickybar .msg span{display:none}
+    .hero-inner,.config-card,.fin-card,.book-card{grid-template-columns:1fr}
+    .hero-car{order:-1}.bf1,.bf2{display:none}
+    .car-grid{grid-template-columns:repeat(2,1fr)}
+    .stats-grid{grid-template-columns:repeat(2,1fr);gap:34px}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .nav-links{display:none}.burger{display:block}
+    .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:var(--bg2);padding:24px;gap:18px;border-bottom:1px solid var(--line)}
+  }
+  @media(max-width:560px){.car-grid{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr}.config-card,.fin-card,.book-card{padding:28px}}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap">
+    <nav>
+      <a href="#" class="brand"><i class="fa-solid fa-gauge-high"></i> APEX MOTORS</a>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="#inventory">Inventory</a></li>
+        <li><a href="#configurator">Configure</a></li>
+        <li><a href="#finance">Finance</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#book" class="btn btn-primary"><i class="fa-solid fa-key"></i> Book Test Drive</a>
+        <button class="burger" id="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"><div class="grid-lines"></div></div>
+  <div class="wrap hero-inner">
+    <div data-aos="fade-up">
+      <span class="eyebrow">The Apex experience</span>
+      <h1>Find the one you'll <span class="g">love to drive.</span></h1>
+      <p class="lead">Browse 400+ hand-inspected vehicles, configure your perfect build, and get pre-approved financing — all in one place.</p>
+      <div class="qsearch">
+        <select id="q-make"><option value="">Any make</option><option>Audi</option><option>BMW</option><option>Mercedes</option><option>Tesla</option><option>Porsche</option></select>
+        <select id="q-type"><option value="">Any type</option><option>SUV</option><option>Sedan</option><option>Electric</option><option>Sport</option></select>
+        <input id="q-price" type="text" placeholder="Max price $" />
+        <button class="btn btn-primary" onclick="document.getElementById('inventory').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="num">400+</div><div class="lbl">Vehicles in stock</div></div>
+        <div><div class="num">4.9★</div><div class="lbl">2,300 reviews</div></div>
+        <div><div class="num">7‑day</div><div class="lbl">Money-back</div></div>
+      </div>
+    </div>
+    <div class="hero-car" data-aos="fade-left" data-aos-delay="150">
+      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80" alt="Featured car" />
+      <div class="badge-float bf1"><i class="fa-solid fa-bolt"></i><div><div class="t">0–60 in 3.1s</div><div class="s">Performance verified</div></div></div>
+      <div class="badge-float bf2"><i class="fa-solid fa-shield-halved"></i><div><div class="t">172‑pt inspection</div><div class="s">Every vehicle</div></div></div>
+    </div>
+  </div>
+  <a href="#inventory" class="scroll-cue">Explore <i class="fa-solid fa-chevron-down"></i></a>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-row">
+      <div class="ti"><i class="fa-solid fa-tag"></i><span><b>No hidden fees</b><br>Out-the-door pricing</span></div>
+      <div class="ti"><i class="fa-solid fa-file-lines"></i><span><b>Free CARFAX</b><br>On every vehicle</span></div>
+      <div class="ti"><i class="fa-solid fa-rotate-left"></i><span><b>7-day money-back</b><br>Drive it, love it</span></div>
+      <div class="ti"><i class="fa-solid fa-star"></i><span><b>4.9★ rated</b><br>2,300 reviews</span></div>
+      <div class="ti"><i class="fa-solid fa-shield-halved"></i><span><b>172-point</b><br>Inspection passed</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- INVENTORY -->
+<section class="inventory" id="inventory">
+  <div class="wrap">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="eyebrow">Featured inventory</span>
+      <h2>Drive something extraordinary</h2>
+      <p>Every vehicle inspected, reconditioned, and backed by our 7-day money-back promise.</p>
+    </div>
+    <div class="filters" data-aos="fade-up" id="filters">
+      <button class="chip active" data-f="all">All</button>
+      <button class="chip" data-f="suv">SUV</button>
+      <button class="chip" data-f="sedan">Sedan</button>
+      <button class="chip" data-f="electric">Electric</button>
+      <button class="chip" data-f="sport">Sport</button>
+    </div>
+    <div class="car-grid" id="cargrid"></div>
+  </div>
+</section>
+
+<!-- CONFIGURATOR -->
+<section class="config" id="configurator">
+  <div class="wrap">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="eyebrow">Build &amp; price</span>
+      <h2>Design your dream car</h2>
+      <p>Pick a color, trim, and wheels — watch your price update live.</p>
+    </div>
+    <div class="config-card" data-aos="zoom-in">
+      <div class="config-stage">
+        <svg id="carSvg" viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="320" cy="250" rx="250" ry="18" fill="rgba(0,0,0,.35)"/>
+          <path id="carBody" d="M60,182 C60,150 92,142 132,140 L182,108 C204,93 236,86 286,86 L378,86 C432,86 474,108 506,142 L566,151 C596,156 606,167 606,182 L606,202 C606,209 601,213 594,213 L72,213 C65,213 60,209 60,202 Z" fill="#3b82f6"/>
+          <path d="M198,112 C214,99 240,94 282,94 L356,94 C372,94 384,100 396,112 L420,138 L186,138 Z" fill="rgba(10,16,28,.82)"/>
+          <path d="M210,116 C222,107 244,103 280,103 L300,103 L300,134 L196,134 Z" fill="#9fc3ff" opacity=".5"/>
+          <path d="M312,103 L352,103 C366,103 376,108 386,116 L404,134 L312,134 Z" fill="#9fc3ff" opacity=".5"/>
+          <rect x="588" y="156" width="20" height="16" rx="4" fill="#ffe9a8"/>
+          <rect x="60" y="176" width="12" height="14" rx="3" fill="#ff6b6b"/>
+          <g id="wheels">
+            <circle cx="178" cy="214" r="42" fill="#0c1322"/><circle cx="178" cy="214" r="40" fill="#11192b"/><circle id="rim1" cx="178" cy="214" r="22" fill="#cfd8ea"/><circle cx="178" cy="214" r="7" fill="#0c1322"/>
+            <circle cx="476" cy="214" r="42" fill="#0c1322"/><circle cx="476" cy="214" r="40" fill="#11192b"/><circle id="rim2" cx="476" cy="214" r="22" fill="#cfd8ea"/><circle cx="476" cy="214" r="7" fill="#0c1322"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="opt-group">
+          <div class="lbl">Exterior color</div>
+          <div class="swatches" id="colors">
+            <div class="swatch on" data-c="#3b82f6" data-name="Azure Blue" data-add="0" style="background:#3b82f6"></div>
+            <div class="swatch" data-c="#e2e8f0" data-name="Pearl White" data-add="800" style="background:#e2e8f0"></div>
+            <div class="swatch" data-c="#0f172a" data-name="Obsidian" data-add="1200" style="background:#0f172a"></div>
+            <div class="swatch" data-c="#dc2626" data-name="Apex Red" data-add="1500" style="background:#dc2626"></div>
+            <div class="swatch" data-c="#16a34a" data-name="British Green" data-add="1200" style="background:#16a34a"></div>
+            <div class="swatch" data-c="#f5b740" data-name="Solar Gold" data-add="2000" style="background:#f5b740"></div>
+          </div>
+        </div>
+        <div class="opt-group">
+          <div class="lbl">Trim</div>
+          <div class="pills" id="trims">
+            <div class="pill on" data-add="0">Sport</div>
+            <div class="pill" data-add="4500">Luxury</div>
+            <div class="pill" data-add="9000">Performance</div>
+          </div>
+        </div>
+        <div class="opt-group">
+          <div class="lbl">Wheels</div>
+          <div class="pills" id="wheelopt">
+            <div class="pill on" data-add="0" data-rim="#cfd8ea">19" Silver</div>
+            <div class="pill" data-add="1800" data-rim="#0c1322">20" Black</div>
+            <div class="pill" data-add="2600" data-rim="#f5b740">21" Gold</div>
+          </div>
+        </div>
+        <div class="config-price">
+          <div><div class="pl">Your build <span id="buildName" style="color:var(--accent2)">· Azure Blue</span></div></div>
+          <div class="pv" id="buildPrice">$48,900</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCE -->
+<section class="finance" id="finance">
+  <div class="wrap">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="eyebrow">Payment calculator</span>
+      <h2>Know your monthly before you visit</h2>
+      <p>Move the sliders for an instant estimate. No credit check, no commitment.</p>
+    </div>
+    <div class="fin-card" data-aos="fade-up">
+      <div>
+        <div class="slider-row">
+          <div class="top"><span class="k">Vehicle price</span><span class="v" id="vPrice">$48,900</span></div>
+          <input type="range" id="sPrice" min="15000" max="150000" step="500" value="48900" />
+        </div>
+        <div class="slider-row">
+          <div class="top"><span class="k">Down payment</span><span class="v" id="vDown">$7,000</span></div>
+          <input type="range" id="sDown" min="0" max="60000" step="500" value="7000" />
+        </div>
+        <div class="slider-row">
+          <div class="top"><span class="k">Loan term</span><span class="v" id="vTerm">60 months</span></div>
+          <input type="range" id="sTerm" min="24" max="84" step="12" value="60" />
+        </div>
+        <div class="slider-row">
+          <div class="top"><span class="k">APR</span><span class="v" id="vApr">5.9%</span></div>
+          <input type="range" id="sApr" min="1" max="15" step="0.1" value="5.9" />
+        </div>
+      </div>
+      <div class="fin-out">
+        <div class="est">Estimated payment</div>
+        <div class="mo"><span>$</span><span id="moPay">0</span><span>/mo</span></div>
+        <div class="fin-breakdown">
+          <div><div class="k">Amount financed</div><div class="v" id="bFin">$0</div></div>
+          <div><div class="k">Total interest</div><div class="v" id="bInt">$0</div></div>
+        </div>
+        <a href="#book" class="btn btn-primary" style="margin-top:24px;justify-content:center;width:100%"><i class="fa-solid fa-file-signature"></i> Get pre-approved</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRADE-IN VALUATOR -->
+<section class="trade" id="trade" style="padding:30px 0 90px">
+  <div class="wrap">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="eyebrow">Trade-in</span>
+      <h2>Value your trade in 30 seconds</h2>
+      <p>Instant estimate — no account, no haggling. Roll it straight into your next car.</p>
+    </div>
+    <div class="trade-card" data-aos="fade-up">
+      <div class="trade-controls">
+        <div class="r2">
+          <div><label>Make</label><select id="tMake"><option>Toyota</option><option>Honda</option><option selected>BMW</option><option>Audi</option><option>Mercedes</option><option>Tesla</option><option>Ford</option></select></div>
+          <div><label>Year</label><select id="tYear"></select></div>
+        </div>
+        <div class="r2">
+          <div><label>Mileage</label><select id="tMiles"><option value="1">Under 20k</option><option value="0.86" selected>20k–50k</option><option value="0.72">50k–80k</option><option value="0.58">80k–120k</option><option value="0.42">120k+</option></select></div>
+          <div><label>Condition</label><select id="tCond"><option value="1">Excellent</option><option value="0.9" selected>Good</option><option value="0.78">Fair</option></select></div>
+        </div>
+        <p style="color:var(--muted);font-size:13px;margin-top:6px"><i class="fa-solid fa-circle-info" style="color:var(--accent2)"></i> Estimate updates live. Final offer confirmed at a free inspection.</p>
+      </div>
+      <div class="trade-out">
+        <div class="est">Estimated trade-in value</div>
+        <div class="val" id="tVal">$0</div>
+        <div style="color:var(--muted);font-size:13px">Likely range: <span id="tRange">—</span></div>
+        <a href="#book" class="btn btn-primary" style="margin-top:22px;width:100%;justify-content:center"><i class="fa-solid fa-right-left"></i> Apply to my purchase</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat" data-aos="fade-up"><div class="n" data-count="12500">0</div><div class="l">Cars delivered</div></div>
+      <div class="stat" data-aos="fade-up" data-aos-delay="100"><div class="n" data-count="2300">0</div><div class="l">5-star reviews</div></div>
+      <div class="stat" data-aos="fade-up" data-aos-delay="200"><div class="n" data-count="18">0</div><div class="l">Years in business</div></div>
+      <div class="stat" data-aos="fade-up" data-aos-delay="300"><div class="n" data-count="172">0</div><div class="l">Inspection points</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi" id="testimonials">
+  <div class="wrap">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="eyebrow">What drivers say</span>
+      <h2>2,300 happy owners and counting</h2>
+    </div>
+    <div class="swiper" id="testiSwiper" data-aos="fade-up">
+      <div class="swiper-wrapper" id="testiWrap"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section class="book" id="book">
+  <div class="wrap">
+    <div class="book-card" data-aos="zoom-in">
+      <div>
+        <span class="eyebrow">Book a test drive</span>
+        <h2>Feel it for yourself.</h2>
+        <p>Pick a car and a time — we'll have it cleaned, charged, and waiting at the door. Free, no pressure.</p>
+        <div style="display:flex;gap:24px;margin-top:24px;color:var(--muted);font-size:14px;flex-wrap:wrap">
+          <span><i class="fa-solid fa-location-dot" style="color:var(--accent2)"></i> 4200 Lakeview Dr, Minneapolis</span>
+          <span><i class="fa-solid fa-phone" style="color:var(--accent2)"></i> (612) 555‑0199</span>
+        </div>
+      </div>
+      <form class="book-form" id="bookForm">
+        <input type="text" placeholder="Your name" required />
+        <input type="email" placeholder="Email address" required />
+        <select required><option value="">Choose a vehicle…</option><option>BMW M4 Competition</option><option>Tesla Model Y</option><option>Audi Q7</option><option>Porsche 911</option><option>Mercedes EQS</option></select>
+        <input type="date" required />
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> Confirm my test drive</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="brand"><i class="fa-solid fa-gauge-high"></i> APEX MOTORS</a>
+        <p>Premium pre-owned and new vehicles, transparent pricing, and financing that works for you. Driven by people, not pressure.</p>
+      </div>
+      <div class="foot-col"><h4>Shop</h4><a href="#inventory">Inventory</a><a href="#configurator">Build &amp; price</a><a href="#finance">Financing</a><a href="#">Trade-in</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="#">About us</a><a href="#testimonials">Reviews</a><a href="#">Careers</a><a href="#">Blog</a></div>
+      <div class="foot-col"><h4>Support</h4><a href="#book">Book a drive</a><a href="#">Warranty</a><a href="#">Contact</a><a href="#">FAQ</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Apex Motors. Demo site for presentation.</span>
+      <div class="socials"><a href="#"><i class="fa-brands fa-instagram"></i></a><a href="#"><i class="fa-brands fa-facebook-f"></i></a><a href="#"><i class="fa-brands fa-youtube"></i></a><a href="#"><i class="fa-brands fa-x-twitter"></i></a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- VEHICLE QUICK-VIEW MODAL (VDP) -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-img">
+      <button class="modal-close" id="modalClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <img id="mImg" alt="" />
+      <div class="modal-360"><i class="fa-solid fa-rotate"></i> 360° view available</div>
+    </div>
+    <div class="modal-body">
+      <span class="car-tag" id="mTag" style="position:static;display:inline-block;margin-bottom:12px"></span>
+      <h3 id="mName"></h3>
+      <div class="modal-price"><span class="p" id="mPrice"></span><span class="mo" id="mMo"></span></div>
+      <div class="modal-specs" id="mSpecs"></div>
+      <div class="modal-trust">
+        <div><i class="fa-solid fa-file-lines"></i> Free CARFAX history report included</div>
+        <div><i class="fa-solid fa-shield-halved"></i> Passed our 172-point inspection</div>
+        <div><i class="fa-solid fa-rotate-left"></i> 7-day money-back guarantee</div>
+      </div>
+      <div class="modal-cta">
+        <a class="btn btn-primary" id="mBook"><i class="fa-solid fa-key"></i> Book test drive</a>
+        <a class="btn btn-ghost" id="mFin"><i class="fa-solid fa-file-signature"></i> Get pre-approved</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY CONVERSION BAR -->
+<div class="stickybar" id="stickybar">
+  <div class="wrap inner">
+    <div class="msg">Ready to find yours?<span>Free test drives · 7-day money-back · zero pressure</span></div>
+    <div class="acts">
+      <a href="tel:6125550199" class="btn btn-ghost"><i class="fa-solid fa-phone"></i> Call</a>
+      <a href="#book" class="btn btn-primary"><i class="fa-solid fa-key"></i> Book test drive</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i><span id="toastMsg">Done!</span></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+<script>
+// ---------- data ----------
+var cars=[
+  {n:"BMW M4 Competition",p:84500,cat:"sport",img:"1544636331-e26879cd4d9b",tag:"Sport",hp:"503 hp",mi:"6k mi",yr:"2024"},
+  {n:"Tesla Model Y",p:52990,cat:"electric",img:"1561580125-028ee3bd62eb",tag:"Electric",hp:"384 mi range",mi:"New",yr:"2025"},
+  {n:"Audi Q7 Prestige",p:67800,cat:"suv",img:"1606664515524-ed2f786a0bd6",tag:"SUV",hp:"335 hp",mi:"11k mi",yr:"2023"},
+  {n:"Porsche 911 Carrera",p:128400,cat:"sport",img:"1503376780353-7e6692767b70",tag:"Sport",hp:"443 hp",mi:"3k mi",yr:"2024"},
+  {n:"Mercedes EQS 580",p:104900,cat:"electric",img:"1617814076367-b759c7d7e738",tag:"Electric",hp:"516 mi range",mi:"New",yr:"2025"},
+  {n:"Range Rover Velar",p:71200,cat:"suv",img:"1606152421802-db97b9c7a11b",tag:"SUV",hp:"395 hp",mi:"14k mi",yr:"2023"},
+  {n:"Audi A7 Sportback",p:58600,cat:"sedan",img:"1542362567-b07e54358753",tag:"Sedan",hp:"335 hp",mi:"9k mi",yr:"2024"},
+  {n:"BMW i5 eDrive40",p:66900,cat:"electric",img:"1555215695-3004980ad54e",tag:"Electric",hp:"295 mi range",mi:"New",yr:"2025"},
+  {n:"Mercedes C300 Sedan",p:46900,cat:"sedan",img:"1549399542-7e3f8b79c341",tag:"Sedan",hp:"255 hp",mi:"12k mi",yr:"2023"}
+];
+var fmt=function(n){return "$"+Math.round(n).toLocaleString()};
+function estMonthly(price){var p=price*0.9,r=0.059/12,n=72;var m=p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);return Math.round(m).toLocaleString();}
+var grid=document.getElementById("cargrid");
+function renderCars(filter){
+  grid.innerHTML="";
+  cars.filter(function(c){return filter==="all"||c.cat===filter}).forEach(function(c){
+    var el=document.createElement("div");
+    el.className="car-card"; el.setAttribute("data-tilt",""); el.setAttribute("data-aos","fade-up");
+    el.innerHTML='<div class="car-media"><img loading="lazy" src="https://images.unsplash.com/photo-'+c.img+'?auto=format&fit=crop&w=700&q=80" alt="'+c.n+'" onerror="this.style.background=\'#1b2438\';this.removeAttribute(\'src\')"><span class="car-tag">'+c.tag+'</span><button class="fav" aria-label="Save"><i class="fa-regular fa-heart"></i></button></div>'+
+      '<div class="car-body"><h3>'+c.n+' <span class="car-price">'+fmt(c.p)+'</span></h3>'+
+      '<div class="car-mo">or <b>$'+estMonthly(c.p)+'/mo</b> with $'+Math.round(c.p*0.1/1000)+'k down*</div>'+
+      '<div class="car-specs"><span><i class="fa-solid fa-gauge"></i> '+c.hp+'</span><span><i class="fa-solid fa-road"></i> '+c.mi+'</span><span><i class="fa-solid fa-calendar"></i> '+c.yr+'</span></div>'+
+      '<button class="btn viewbtn">View details <i class="fa-solid fa-arrow-right"></i></button></div>';
+    el.querySelector(".viewbtn").onclick=function(){openCar(c)};
+    grid.appendChild(el);
+  });
+  grid.querySelectorAll("#cargrid img").forEach(function(im){
+    var t=setTimeout(function(){ if(!im.complete||im.naturalWidth===0){im.style.background="#1b2438";im.removeAttribute("src");} },6000);
+    im.addEventListener("load",function(){if(im.naturalWidth>0)clearTimeout(t)});
+  });
+  bindFavs(); if(window.VanillaTilt){VanillaTilt.init(grid.querySelectorAll("[data-tilt]"),{max:6,speed:400,glare:true,"max-glare":.15,scale:1.02});}
+  if(window.AOS)AOS.refreshHard();
+}
+function bindFavs(){
+  grid.querySelectorAll(".fav").forEach(function(b){
+    b.onclick=function(e){e.stopPropagation();this.classList.toggle("on");
+      var i=this.querySelector("i");this.classList.contains("on")?(i.className="fa-solid fa-heart"):(i.className="fa-regular fa-heart");};
+  });
+}
+renderCars("all");
+document.getElementById("filters").addEventListener("click",function(e){
+  var b=e.target.closest(".chip"); if(!b)return;
+  document.querySelectorAll(".chip").forEach(function(c){c.classList.remove("active")});
+  b.classList.add("active"); renderCars(b.dataset.f);
+});
+
+// ---------- configurator ----------
+var basePrice=48900, sel={color:0,trim:0,wheel:0}, colorName="Azure Blue";
+function updateBuild(){
+  var total=basePrice+sel.color+sel.trim+sel.wheel;
+  document.getElementById("buildPrice").textContent=fmt(total);
+  document.getElementById("buildName").textContent="· "+colorName;
+}
+document.getElementById("colors").addEventListener("click",function(e){
+  var s=e.target.closest(".swatch"); if(!s)return;
+  document.querySelectorAll("#colors .swatch").forEach(function(x){x.classList.remove("on")});
+  s.classList.add("on");
+  document.getElementById("carBody").setAttribute("fill",s.dataset.c);
+  document.getElementById("carBody").style.transition="fill .4s";
+  sel.color=+s.dataset.add; colorName=s.dataset.name; updateBuild();
+});
+document.getElementById("trims").addEventListener("click",function(e){
+  var p=e.target.closest(".pill"); if(!p)return;
+  this.querySelectorAll(".pill").forEach(function(x){x.classList.remove("on")});
+  p.classList.add("on"); sel.trim=+p.dataset.add; updateBuild();
+});
+document.getElementById("wheelopt").addEventListener("click",function(e){
+  var p=e.target.closest(".pill"); if(!p)return;
+  this.querySelectorAll(".pill").forEach(function(x){x.classList.remove("on")});
+  p.classList.add("on"); sel.wheel=+p.dataset.add;
+  document.getElementById("rim1").setAttribute("fill",p.dataset.rim);
+  document.getElementById("rim2").setAttribute("fill",p.dataset.rim);
+  updateBuild();
+});
+updateBuild();
+
+// ---------- finance ----------
+var sP=document.getElementById("sPrice"),sD=document.getElementById("sDown"),sT=document.getElementById("sTerm"),sA=document.getElementById("sApr");
+function calcFin(){
+  var price=+sP.value, down=Math.min(+sD.value,price), term=+sT.value, apr=+sA.value;
+  var principal=price-down, r=apr/100/12, n=term;
+  var m = r===0 ? principal/n : principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  var totalInt=m*n-principal;
+  document.getElementById("vPrice").textContent=fmt(price);
+  document.getElementById("vDown").textContent=fmt(down);
+  document.getElementById("vTerm").textContent=term+" months";
+  document.getElementById("vApr").textContent=apr.toFixed(1)+"%";
+  document.getElementById("moPay").textContent=Math.round(m).toLocaleString();
+  document.getElementById("bFin").textContent=fmt(principal);
+  document.getElementById("bInt").textContent=fmt(Math.max(0,totalInt));
+}
+[sP,sD,sT,sA].forEach(function(s){s.addEventListener("input",calcFin)});
+calcFin();
+
+// ---------- counters ----------
+function animateCount(el){
+  var target=+el.dataset.count, suffix=target===4 ? "" : "";
+  var obj={v:0};
+  if(window.gsap){gsap.to(obj,{v:target,duration:2,ease:"power2.out",onUpdate:function(){el.textContent=Math.round(obj.v).toLocaleString()}});}
+  else{el.textContent=target.toLocaleString();}
+}
+var seen=false;
+var statObs=new IntersectionObserver(function(en){
+  en.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;document.querySelectorAll("[data-count]").forEach(animateCount);}});
+},{threshold:.4});
+statObs.observe(document.querySelector(".stats"));
+
+// ---------- testimonials ----------
+var testi=[
+  {q:"Found my dream M4, financed it, and drove home the same day. Zero pressure, total transparency.",n:"Marcus Reed",r:"BMW M4 owner",i:"MR"},
+  {q:"The configurator let me build exactly what I wanted before I ever set foot in the showroom. Genius.",n:"Aisha Khan",r:"Tesla Model Y owner",i:"AK"},
+  {q:"Best car-buying experience I've had. The payment calculator matched my final deal almost to the dollar.",n:"David Olsen",r:"Audi Q7 owner",i:"DO"},
+  {q:"They delivered the car to my driveway, spotless. The 172-point inspection is the real deal.",n:"Lena Torres",r:"Porsche 911 owner",i:"LT"}
+];
+var tw=document.getElementById("testiWrap");
+testi.forEach(function(t){
+  var s=document.createElement("div");s.className="swiper-slide";
+  s.innerHTML='<div class="t-card"><div class="t-stars">★★★★★</div><p>"'+t.q+'"</p><div class="t-who"><div class="av">'+t.i+'</div><div><div class="nm">'+t.n+'</div><div class="rl">'+t.r+'</div></div></div></div>';
+  tw.appendChild(s);
+});
+new Swiper("#testiSwiper",{slidesPerView:1,spaceBetween:24,loop:true,autoplay:{delay:3600},pagination:{el:".swiper-pagination",clickable:true},breakpoints:{700:{slidesPerView:2},1024:{slidesPerView:3}}});
+
+// ---------- nav + toast + form ----------
+var hdr=document.getElementById("hdr");
+window.addEventListener("scroll",function(){hdr.classList.toggle("scrolled",window.scrollY>30)});
+document.getElementById("burger").onclick=function(){document.getElementById("navlinks").classList.toggle("open")};
+document.querySelectorAll("#navlinks a").forEach(function(a){a.onclick=function(){document.getElementById("navlinks").classList.remove("open")}});
+function toast(msg){var t=document.getElementById("toast");document.getElementById("toastMsg").textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show")},3200);}
+document.getElementById("bookForm").addEventListener("submit",function(e){e.preventDefault();toast("Test drive booked — we'll confirm by email!");this.reset();});
+
+// ---------- vehicle quick-view modal (VDP) ----------
+var modalBg=document.getElementById("modalBg");
+function openCar(c){
+  var im=document.getElementById("mImg");
+  im.src="https://images.unsplash.com/photo-"+c.img+"?auto=format&fit=crop&w=900&q=80"; im.alt=c.n;
+  document.getElementById("mTag").textContent=c.tag;
+  document.getElementById("mName").textContent=c.n;
+  document.getElementById("mPrice").textContent=fmt(c.p);
+  document.getElementById("mMo").textContent="or $"+estMonthly(c.p)+"/mo est.";
+  document.getElementById("mSpecs").innerHTML=
+    '<div><span>Power / range</span>'+c.hp+'</div><div><span>Mileage</span>'+c.mi+'</div>'+
+    '<div><span>Year</span>'+c.yr+'</div><div><span>Body type</span>'+c.tag+'</div>';
+  modalBg.classList.add("show"); document.body.style.overflow="hidden";
+}
+function closeModal(){modalBg.classList.remove("show"); document.body.style.overflow="";}
+document.getElementById("modalClose").onclick=closeModal;
+modalBg.onclick=function(e){if(e.target===modalBg)closeModal()};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeModal()});
+document.getElementById("mBook").onclick=function(){closeModal();document.getElementById("book").scrollIntoView({behavior:"smooth"})};
+document.getElementById("mFin").onclick=function(){closeModal();document.getElementById("finance").scrollIntoView({behavior:"smooth"})};
+
+// ---------- sticky conversion bar ----------
+var stickybar=document.getElementById("stickybar");
+window.addEventListener("scroll",function(){
+  var nearBottom=window.innerHeight+window.scrollY > document.body.offsetHeight-260;
+  stickybar.classList.toggle("show", window.scrollY>720 && !nearBottom);
+});
+
+// ---------- trade-in valuator ----------
+var makeBase={Toyota:26000,Honda:24000,BMW:42000,Audi:40000,Mercedes:45000,Tesla:43000,Ford:30000};
+var tYearSel=document.getElementById("tYear");
+for(var yy=2026;yy>=2012;yy--){var o=document.createElement("option");o.value=yy;o.textContent=yy;if(yy===2021)o.selected=true;tYearSel.appendChild(o);}
+function calcTrade(){
+  var base=makeBase[document.getElementById("tMake").value]||28000;
+  var age=2026-(+tYearSel.value);
+  var miles=+document.getElementById("tMiles").value;
+  var cond=+document.getElementById("tCond").value;
+  var val=base*Math.pow(0.88,age)*miles*cond;
+  document.getElementById("tVal").textContent=fmt(val);
+  document.getElementById("tRange").textContent=fmt(val*0.92)+" – "+fmt(val*1.08);
+}
+["tMake","tYear","tMiles","tCond"].forEach(function(id){document.getElementById(id).addEventListener("change",calcTrade)});
+calcTrade();
+
+// ---------- init ----------
+AOS.init({duration:750,once:true,offset:80});
+if(window.gsap){gsap.from(".hero h1",{y:30,opacity:0,duration:1,ease:"power3.out"});}
+</script>
+</body>
+</html>
