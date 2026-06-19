@@ -6,12 +6,22 @@
 <title>Apex Motors — Premium Auto Dealership</title>
 <meta name="description" content="Apex Motors — find, configure, and finance your next car. A premium dealership experience." />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Apex Motors — Premium Auto Dealership" />
+<meta property="og:description" content="Find, configure, and finance your next car. Live configurator, instant trade-in value, and a frictionless test-drive booking." />
+<meta property="og:image" content="https://ahmedabdirahman1-max.github.io/apex-motors/assets/img/1503376780353-7e6692767b70.jpg" />
+<meta property="og:url" content="https://ahmedabdirahman1-max.github.io/apex-motors/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Apex Motors — Premium Auto Dealership" />
+<meta name="twitter:description" content="Live car configurator, finance & trade-in calculators, and one-click test-drive booking." />
+<meta name="twitter:image" content="https://ahmedabdirahman1-max.github.io/apex-motors/assets/img/1503376780353-7e6692767b70.jpg" />
+
+<link rel="stylesheet" href="assets/lib/fonts/fonts.css" />
+<link rel="stylesheet" href="assets/lib/fontawesome/css/all.min.css" />
+<link rel="stylesheet" href="assets/lib/aos.css" />
+<link rel="stylesheet" href="assets/lib/swiper.css" />
 
 <style>
   :root{
@@ -292,7 +302,7 @@
       </div>
     </div>
     <div class="hero-car" data-aos="fade-left" data-aos-delay="150">
-      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80" alt="Featured car" />
+      <img src="assets/img/1503376780353-7e6692767b70.jpg" alt="Featured car" />
       <div class="badge-float bf1"><i class="fa-solid fa-bolt"></i><div><div class="t">0–60 in 3.1s</div><div class="s">Performance verified</div></div></div>
       <div class="badge-float bf2"><i class="fa-solid fa-shield-halved"></i><div><div class="t">172‑pt inspection</div><div class="s">Every vehicle</div></div></div>
     </div>
@@ -570,10 +580,10 @@
 
 <div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i><span id="toastMsg">Done!</span></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+<script src="assets/lib/aos.js"></script>
+<script src="assets/lib/swiper.js"></script>
+<script src="assets/lib/gsap.min.js"></script>
+<script src="assets/lib/vanilla-tilt.min.js"></script>
 <script>
 // ---------- data ----------
 var cars=[
@@ -595,7 +605,7 @@ function renderCars(filter){
   cars.filter(function(c){return filter==="all"||c.cat===filter}).forEach(function(c){
     var el=document.createElement("div");
     el.className="car-card"; el.setAttribute("data-tilt",""); el.setAttribute("data-aos","fade-up");
-    el.innerHTML='<div class="car-media"><img loading="lazy" src="https://images.unsplash.com/photo-'+c.img+'?auto=format&fit=crop&w=700&q=80" alt="'+c.n+'"><span class="car-tag">'+c.tag+'</span><button class="fav" aria-label="Save"><i class="fa-regular fa-heart"></i></button></div>'+
+    el.innerHTML='<div class="car-media"><img loading="lazy" src="assets/img/'+c.img+'.jpg" alt="'+c.n+'"><span class="car-tag">'+c.tag+'</span><button class="fav" aria-label="Save"><i class="fa-regular fa-heart"></i></button></div>'+
       '<div class="car-body"><h3>'+c.n+' <span class="car-price">'+fmt(c.p)+'</span></h3>'+
       '<div class="car-mo">or <b>$'+estMonthly(c.p)+'/mo</b> with $'+Math.round(c.p*0.1/1000)+'k down*</div>'+
       '<div class="car-specs"><span><i class="fa-solid fa-gauge"></i> '+c.hp+'</span><span><i class="fa-solid fa-road"></i> '+c.mi+'</span><span><i class="fa-solid fa-calendar"></i> '+c.yr+'</span></div>'+
@@ -605,9 +615,8 @@ function renderCars(filter){
   });
   grid.querySelectorAll("#cargrid img").forEach(function(im){
     function fallback(){var m=im.parentNode; if(m && !m.querySelector(".img-ph")){im.style.display="none"; var ph=document.createElement("div"); ph.className="img-ph"; ph.style.cssText="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#18223c,#0d1220);color:#3b82f6;font-size:44px"; ph.innerHTML='<i class="fa-solid fa-car-side"></i>'; m.insertBefore(ph,m.firstChild);}}
-    var t=setTimeout(function(){if(!im.complete||im.naturalWidth===0)fallback();},5000);
-    im.addEventListener("load",function(){if(im.naturalWidth>0)clearTimeout(t)});
-    im.addEventListener("error",function(){clearTimeout(t);fallback();});
+    if(im.complete && im.naturalWidth===0) fallback();
+    im.addEventListener("error",fallback);
   });
   bindFavs(); if(window.VanillaTilt){VanillaTilt.init(grid.querySelectorAll("[data-tilt]"),{max:6,speed:400,glare:true,"max-glare":.15,scale:1.02});}
   if(window.AOS)AOS.refreshHard();
@@ -713,7 +722,7 @@ document.getElementById("bookForm").addEventListener("submit",function(e){e.prev
 var modalBg=document.getElementById("modalBg");
 function openCar(c){
   var im=document.getElementById("mImg");
-  im.src="https://images.unsplash.com/photo-"+c.img+"?auto=format&fit=crop&w=900&q=80"; im.alt=c.n;
+  im.src="assets/img/"+c.img+".jpg"; im.alt=c.n;
   document.getElementById("mTag").textContent=c.tag;
   document.getElementById("mName").textContent=c.n;
   document.getElementById("mPrice").textContent=fmt(c.p);
