@@ -595,7 +595,7 @@ function renderCars(filter){
   cars.filter(function(c){return filter==="all"||c.cat===filter}).forEach(function(c){
     var el=document.createElement("div");
     el.className="car-card"; el.setAttribute("data-tilt",""); el.setAttribute("data-aos","fade-up");
-    el.innerHTML='<div class="car-media"><img loading="lazy" src="https://images.unsplash.com/photo-'+c.img+'?auto=format&fit=crop&w=700&q=80" alt="'+c.n+'" onerror="this.style.background=\'#1b2438\';this.removeAttribute(\'src\')"><span class="car-tag">'+c.tag+'</span><button class="fav" aria-label="Save"><i class="fa-regular fa-heart"></i></button></div>'+
+    el.innerHTML='<div class="car-media"><img loading="lazy" src="https://images.unsplash.com/photo-'+c.img+'?auto=format&fit=crop&w=700&q=80" alt="'+c.n+'"><span class="car-tag">'+c.tag+'</span><button class="fav" aria-label="Save"><i class="fa-regular fa-heart"></i></button></div>'+
       '<div class="car-body"><h3>'+c.n+' <span class="car-price">'+fmt(c.p)+'</span></h3>'+
       '<div class="car-mo">or <b>$'+estMonthly(c.p)+'/mo</b> with $'+Math.round(c.p*0.1/1000)+'k down*</div>'+
       '<div class="car-specs"><span><i class="fa-solid fa-gauge"></i> '+c.hp+'</span><span><i class="fa-solid fa-road"></i> '+c.mi+'</span><span><i class="fa-solid fa-calendar"></i> '+c.yr+'</span></div>'+
@@ -604,8 +604,10 @@ function renderCars(filter){
     grid.appendChild(el);
   });
   grid.querySelectorAll("#cargrid img").forEach(function(im){
-    var t=setTimeout(function(){ if(!im.complete||im.naturalWidth===0){im.style.background="#1b2438";im.removeAttribute("src");} },6000);
+    function fallback(){var m=im.parentNode; if(m && !m.querySelector(".img-ph")){im.style.display="none"; var ph=document.createElement("div"); ph.className="img-ph"; ph.style.cssText="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#18223c,#0d1220);color:#3b82f6;font-size:44px"; ph.innerHTML='<i class="fa-solid fa-car-side"></i>'; m.insertBefore(ph,m.firstChild);}}
+    var t=setTimeout(function(){if(!im.complete||im.naturalWidth===0)fallback();},5000);
     im.addEventListener("load",function(){if(im.naturalWidth>0)clearTimeout(t)});
+    im.addEventListener("error",function(){clearTimeout(t);fallback();});
   });
   bindFavs(); if(window.VanillaTilt){VanillaTilt.init(grid.querySelectorAll("[data-tilt]"),{max:6,speed:400,glare:true,"max-glare":.15,scale:1.02});}
   if(window.AOS)AOS.refreshHard();
@@ -752,7 +754,14 @@ function calcTrade(){
 calcTrade();
 
 // ---------- init ----------
-AOS.init({duration:750,once:true,offset:80});
+if(typeof AOS!=="undefined"){AOS.init({duration:750,once:true,offset:80});}
+else{document.querySelectorAll("[data-aos]").forEach(function(el){el.removeAttribute("data-aos");});}
+// safety: never leave content hidden if the animation library is slow or blocked
+window.addEventListener("load",function(){setTimeout(function(){
+  if(typeof AOS==="undefined"||!document.querySelector(".aos-animate")){
+    document.querySelectorAll("[data-aos]").forEach(function(el){el.style.opacity=1;el.style.transform="none";});
+  }
+},1400);});
 if(window.gsap){gsap.from(".hero h1",{y:30,opacity:0,duration:1,ease:"power3.out"});}
 </script>
 </body>
